@@ -12,8 +12,8 @@ using WEBAPP.Context;
 namespace WEBAPP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230522102409_MovieNew")]
-    partial class MovieNew
+    [Migration("20230523104632_Svee")]
+    partial class Svee
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace WEBAPP.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("genreid"));
 
                     b.Property<string>("genrename")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("genreid");
@@ -117,7 +116,6 @@ namespace WEBAPP.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("theaterid");

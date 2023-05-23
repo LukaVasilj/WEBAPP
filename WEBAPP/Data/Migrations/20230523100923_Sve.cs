@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace WEBAPP.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Staima : Migration
+    public partial class Sve : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

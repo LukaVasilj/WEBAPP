@@ -20,7 +20,7 @@ namespace WEBAPP.Models
 
         public string description { get; set; }
 
-        public ICollection<Showtime> showtimes { get; set; }
+        public ICollection<Showtime>? showtimes { get; set; }
 
 
     }

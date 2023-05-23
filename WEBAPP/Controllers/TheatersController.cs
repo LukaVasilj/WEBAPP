@@ -56,16 +56,21 @@ namespace WEBAPP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("theaterid,name,capacity")] Theater theater)
+        public async Task<IActionResult> Create([Bind("name,capacity")] Theater theater)
         {
             if (ModelState.IsValid)
             {
+                // Generate a unique theaterid
+                int maxTheaterId = await _context.theaters.MaxAsync(t => t.theaterid);
+                theater.theaterid = maxTheaterId + 1;
+
                 _context.Add(theater);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(theater);
         }
+
 
         // GET: Theaters/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -143,17 +148,23 @@ namespace WEBAPP.Controllers
         {
             if (_context.theaters == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.theaters'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.theaters' is null.");
             }
+
+            // Delete associated records in customers_theaters table
+            await _context.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM customers_theaters WHERE theaterid = {id}");
+
+            // Delete the theater
             var theater = await _context.theaters.FindAsync(id);
             if (theater != null)
             {
                 _context.theaters.Remove(theater);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool TheaterExists(int id)
         {

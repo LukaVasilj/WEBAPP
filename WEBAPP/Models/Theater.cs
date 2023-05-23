@@ -9,11 +9,11 @@ namespace WEBAPP.Models
 
         public int theaterid { get; set; }
 
-        public string name { get; set; }
+        public string? name { get; set; }
 
         public int capacity { get; set; }
 
-        public ICollection<Showtime> showtimes { get; set; }
+        public ICollection<Showtime>? showtimes { get; set; }
 
     }
 }

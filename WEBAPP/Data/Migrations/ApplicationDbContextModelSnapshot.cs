@@ -113,7 +113,6 @@ namespace WEBAPP.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("theaterid");

@@ -56,18 +56,23 @@ namespace WEBAPP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("movieid,title,releasedate,genreid,director,description")] Movie movie)
+        public async Task<IActionResult> Create([Bind("title,releasedate,genreid,director,description")] Movie movie)
         {
             movie.releasedate = movie.releasedate.ToUniversalTime();
 
             if (ModelState.IsValid)
             {
+                // Generate a unique movieid
+                int maxMovieId = await _context.movies.MaxAsync(m => m.movieid);
+                movie.movieid = maxMovieId + 1;
+
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(movie);
         }
+
 
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -12,8 +12,8 @@ using WEBAPP.Context;
 namespace WEBAPP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230522101743_TheatersNew")]
-    partial class TheatersNew
+    [Migration("20230523100923_Sve")]
+    partial class Sve
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace WEBAPP.Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("genreid"));
 
                     b.Property<string>("genrename")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("genreid");
@@ -128,7 +127,7 @@ namespace WEBAPP.Data.Migrations
             modelBuilder.Entity("WEBAPP.Models.Showtime", b =>
                 {
                     b.HasOne("WEBAPP.Models.Movie", "movies")
-                        .WithMany()
+                        .WithMany("showtimes")
                         .HasForeignKey("movieid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -142,6 +141,11 @@ namespace WEBAPP.Data.Migrations
                     b.Navigation("movies");
 
                     b.Navigation("theaters");
+                });
+
+            modelBuilder.Entity("WEBAPP.Models.Movie", b =>
+                {
+                    b.Navigation("showtimes");
                 });
 
             modelBuilder.Entity("WEBAPP.Models.Theater", b =>
