@@ -1,0 +1,51 @@
+﻿@model IEnumerable<WEBAPP.Models.Theater>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<h1>THEATERS : </h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    </p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.capacity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.capacity)
+                </td>
+                <td>
+
+                   
+                    <button type="button" onclick="location.href='@Url.Action("Edit", new { id = item.theaterid })'" class="button-container">Edit</button> |
+                    <button type="button" onclick="location.href='@Url.Action("Details", new { id = item.theaterid })'" class="button-container">Details</button> |
+                    <a asp-action="Delete" asp-route-id="@item.theaterid" class=" button-delete">Delete</a>
+
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

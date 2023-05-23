@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WEBAPP.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .button-container a {
+        font-family: 'Roboto', sans-serif;
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        padding: 10px 20px;
+        font-size: 18px;
+        color: #fff;
+        background-color: #333;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .table {
+        font-family: 'Merriweather', serif;
+    }
+
+        .button-container a:hover {
+            background-color: #007bff;
+            transform: scale(1.1);
+        }
+
+    .table tbody tr:hover {
+        background-color: #fcf49d;
+        transform: scale(1.05);
+    }
+
+    .button-delete:hover {
+        background-color: red;
+    }
+
+    .button-delete {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 18px;
+        color: #fff;
+        background-color: lightcoral;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        text-align: center;
+        cursor: pointer;
+        border: none;
+    }
+</style>
+
+<h1>Index</h1>
+
+<div class="button-container">
+    <a asp-action="Create">Create New</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.releasedate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genreid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.director)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.releasedate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.genreid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.director)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+                <td>
+                    <form asp-action="Edit" asp-route-id="@item.movieid" method="get">
+                        <button type="submit" class="button-container">Edit</button>
+                    </form>
+                    <form asp-action="Details" asp-route-id="@item.movieid" method="get">
+                        <button type="submit" class="button-container">Details</button>
+                    </form>
+                    <form asp-action="Delete" asp-route-id="@item.movieid" method="post">
+                        <button type="submit" class="button-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
